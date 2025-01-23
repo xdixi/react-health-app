@@ -1,0 +1,149 @@
+.table-main {
+  border-collapse: collapse;
+  width: 800px;
+  margin-top: 50px;
+  margin-left: 50px;
+}
+
+th,
+td,
+tr {
+  border: 1px solid black;
+  /* text-align: center; */
+}
+
+td:first-child {
+  text-align: center;
+}
+
+tbody > tr > td > div {
+  height: 204px;
+  word-break: break-all;
+  font-size: 16px;
+  overflow: auto;
+}
+
+.div-mood {
+  height: auto;
+}
+
+.div-in-textarea {
+  position: relative;
+  padding: 0;
+  overflow: hidden;
+}
+
+.table-data {
+  width: 60px;
+}
+
+.table-sleep {
+  width: 140px;
+}
+
+.table-preasure {
+  width: 110px;
+}
+
+.table-preasure-after {
+  width: 140px;
+}
+
+.table-well-being {
+  width: 170px;
+}
+
+.table-farma {
+  width: 110px;
+}
+
+textarea {
+  width: 96%;
+  height: 160px;
+  font-size: 16px;
+  resize: none;
+  background-color: lightgreen;
+}
+
+.button-agree {
+  width: 25px;
+  position: absolute;
+  top: 174px;
+  height: 25px;
+  background-image: url("../../icons/agree.png");
+  background-size: cover;
+  background-position: center;
+  border: none;
+  border-radius: 50%;
+  color: white;
+  cursor: pointer;
+}
+
+.button-remove {
+  width: 25px;
+  position: absolute;
+  top: 174px;
+  left: 10px;
+  height: 25px;
+  background-image: url("../../icons/remove.png");
+  background-size: cover;
+  background-position: center;
+  border: none;
+  border-radius: 50%;
+  color: white;
+  cursor: pointer;
+}
+
+.weekly-information {
+  width: 800px;
+  height: 300px;
+  margin-top: 50px;
+  margin-left: 50px;
+  border: 1px solid black;
+}
+
+input[type="radio"] {
+  padding: 0px;
+  appearance: none;
+  width: 30px;
+  height: 30px;
+  border-radius: 10px;
+  opacity: 40%;
+}
+
+.deadmood {
+  background-image: url("../../icons/1dead.png");
+  background-size: 100% 100%;
+}
+
+.sadmood {
+  background-image: url("../../icons/2sad.png");
+  background-size: 100% 100%;
+}
+
+.neutralmood {
+  background-image: url("../../icons/3neutral.png");
+  background-size: 100% 100%;
+}
+
+.happymood {
+  background-image: url("../../icons/4happy.png");
+  background-size: 100% 100%;
+}
+
+.veryhappymood {
+  background-image: url("../../icons/5veryhappy.png");
+  background-size: 100% 100%;
+}
+
+input[type="radio"]:hover {
+  opacity: 100%;
+}
+
+input[type="radio"]:checked {
+  opacity: 100%;
+}
+
+/* input[type="radio"] {
+  border-radius: 50%;
+} */
