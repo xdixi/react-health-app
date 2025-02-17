@@ -14,7 +14,7 @@ import {
   averageSleepDuration,
   averageMoodRating,
   averagePreasure,
-} from "./utilsForTable";
+} from "../main-table/utilsForTable";
 import { useNavigate, useParams } from "react-router-dom";
 import ModalPreasure from "../Modal-preasure/ModalPreasure";
 

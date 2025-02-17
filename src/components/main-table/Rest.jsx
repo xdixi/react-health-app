@@ -17,6 +17,7 @@ export default function Rest({
       <button type="button" onClick={() => setModalActive((prev) => !prev)}>
         {value ? `Изменить время` : `Добавить время`}
       </button>
+
       <ModalPreasure active={modalActive} setActive={setModalActive}>
         <Clock
           width={200}
