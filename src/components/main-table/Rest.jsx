@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import ModalPreasure from "../modal-preasure/ModalPreasure";
 import Clock from "../../components/clock/Clock";
+import ModalPreasure from "../modal/Modal";
 
 export default function Rest({
   restTime,
