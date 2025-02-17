@@ -1,7 +1,7 @@
 import React from "react";
-import classes from "./ModalPreasure.module.css";
+import classes from "./Modal.module.css";
 
-export default function ModalPreasure({ active, setActive, children }) {
+export default function Modal({ active, setActive, children }) {
   return (
     <div
       className={`${classes.modal} ${active ? classes.active : ""}`}

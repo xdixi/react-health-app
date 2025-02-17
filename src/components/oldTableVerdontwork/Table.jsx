@@ -16,7 +16,7 @@ import {
   averagePreasure,
 } from "../main-table/utilsForTable";
 import { useNavigate, useParams } from "react-router-dom";
-import ModalPreasure from "../Modal-preasure/ModalPreasure";
+// import ModalPreasure from "../Modal-preasure/ModalPreasure";
 
 const moods = [
   { id: 1, moodName: "1bad" },

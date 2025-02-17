@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Clock from "../../components/clock/Clock";
-import ModalPreasure from "../modal/Modal";
+import Modal from "../modal/Modal";
 
 export default function Rest({
   restTime,
@@ -18,7 +18,7 @@ export default function Rest({
         {value ? `Изменить время` : `Добавить время`}
       </button>
 
-      <ModalPreasure active={modalActive} setActive={setModalActive}>
+      <Modal active={modalActive} setActive={setModalActive}>
         <Clock
           width={200}
           onChange={onChange}
@@ -35,7 +35,7 @@ export default function Rest({
           activeCell={activeCell}
           start={false}
         />
-      </ModalPreasure>
+      </Modal>
     </div>
   );
 }
