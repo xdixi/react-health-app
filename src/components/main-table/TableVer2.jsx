@@ -1,9 +1,12 @@
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import classes from "./Table.module.css";
 import TableRow from "./TableRow";
 import { setPositionButtonInTextarea } from "./utilsForTable";
 import TableWeekInfo from "./TableWeekInfo";
+import Tooltip from "./TooltipForPreasure";
+
+import tooltipicon from "../../icons/tooltippng.png";
 
 const getCurrentWeek = (week) => {
   const storedData = JSON.parse(localStorage.getItem("yearData2025"));
@@ -35,6 +38,7 @@ export default function TableVer2() {
   const navigateToCalendar = () => {
     navigate("/");
   };
+
   const addNumberingInPreasureColumn = (currWeek, row) => {
     let nextNum = 0;
     currWeek.forEach((prop, i) => {
@@ -143,6 +147,16 @@ export default function TableVer2() {
     localStorage.setItem("yearData2025", JSON.stringify(updatedYearData));
   };
 
+  useEffect(() => {
+    const isValidWeek =
+      /^(\d{4})\.(\d{1,2})\.(\d{1,2})-(\d{4})\.(\d{1,2})\.(\d{1,2})$/.test(
+        week
+      );
+    if (!isValidWeek) {
+      return navigate("/error");
+    }
+  }, []);
+
   useMemo(() => {
     setActualWeek(getCurrentWeek(week));
   }, []);
@@ -157,7 +171,21 @@ export default function TableVer2() {
             <tr>
               <th className={classes["table-data"]}>Дата</th>
               <th className={classes["table-sleep"]}>Сон</th>
-              <th className={classes["table-preasure"]}>Давление и пульс</th>
+              <th className={classes["table-preasure"]}>
+                Давление и пульс
+                <Tooltip content="Заполните поле в формате: 1)16:30 – 135/85/70 проснулся">
+                  <img
+                    style={{
+                      position: "absolute",
+                      top: "-18px",
+                      paddingLeft: "6px",
+                    }}
+                    src={tooltipicon}
+                    alt=""
+                    width={25}
+                  />
+                </Tooltip>
+              </th>
               <th className={classes["table-well-being"]}>
                 Самочувствие и оценка дня
               </th>
