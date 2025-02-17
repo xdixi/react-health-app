@@ -96,3 +96,8 @@ border: 1px solid black;
   margin: 0;
   list-style: none;
 }
+
+.select-options ul li {
+  padding: 0;
+  margin: 0;
+}

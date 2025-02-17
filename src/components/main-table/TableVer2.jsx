@@ -4,7 +4,6 @@ import classes from "./Table.module.css";
 import TableRow from "./TableRow";
 import { setPositionButtonInTextarea } from "./utilsForTable";
 import TableWeekInfo from "./TableWeekInfo";
-import DropdownMood from "../dropdown-mood/DropdownMood";
 
 const getCurrentWeek = (week) => {
   const storedData = JSON.parse(localStorage.getItem("yearData2025"));
@@ -22,15 +21,6 @@ const getCurrentWeek = (week) => {
 
   return currentWeek;
 };
-
-const moods = [
-  { id: 0, moodName: "0nocomment" },
-  { id: 1, moodName: "1bad" },
-  { id: 2, moodName: "2sad" },
-  { id: 3, moodName: "3neutral" },
-  { id: 4, moodName: "4happy" },
-  { id: 5, moodName: "5veryhappy" },
-];
 
 export default function TableVer2() {
   const [actualWeek, setActualWeek] = useState([]);
@@ -120,34 +110,6 @@ export default function TableVer2() {
     localStorage.setItem("yearData2025", JSON.stringify(updatedYearData));
   };
 
-  const renderMoods = (
-    moods,
-    setSelectedOptionHandler,
-    rowIndex,
-    row,
-    dateKey,
-    handleMoodChange,
-    actualWeekKey,
-    moodName
-  ) => {
-    return (
-      <li
-        key={moods.id}
-        onClick={() => setSelectedOptionHandler(moods.moodName)}
-      >
-        <input
-          className={classes[`${moods.moodName.slice(1)}mood`]}
-          type="radio"
-          name={`mood-${rowIndex}`}
-          id={`radio1-${rowIndex}`}
-          value={`${moods.moodName.slice(1)}`}
-          checked={row[dateKey][actualWeekKey] === moodName}
-          onChange={() => handleMoodChange(rowIndex, dateKey, moodName)}
-        />
-      </li>
-    );
-  };
-
   const handleMoodChange = (rowIndex, date, moodValue) => {
     if (moodValue === undefined) return;
     const key = "dayRating";
@@ -199,7 +161,7 @@ export default function TableVer2() {
               <th className={classes["table-well-being"]}>
                 Самочувствие и оценка дня
               </th>
-              <th className={classes["table-farma"]}>Таблетки</th>
+              <th className={classes["table-farma"]}>other//</th>
             </tr>
           </thead>
           <tbody>

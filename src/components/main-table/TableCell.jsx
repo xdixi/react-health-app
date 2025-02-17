@@ -1,8 +1,15 @@
-import React, { useEffect, useMemo, useRef, useState } from "react";
+import React, { useEffect, useRef } from "react";
 import classes from "./Table.module.css";
 import { setPositionButtonInTextarea } from "./utilsForTable";
 import Rest from "./Rest";
 import DropdownMood from "../dropdown-mood/DropdownMood";
+
+import badMood from "../../icons/1bad.png";
+import sadMood from "../../icons/2sad.png";
+import neutralMood from "../../icons/3neutral.png";
+import happyMood from "../../icons/4happy.png";
+import veryhappyMood from "../../icons/5veryhappy.png";
+import noCommentMood from "../../icons/0no-comment.png";
 
 const moods = [
   { id: 0, moodName: "0nocomment" },
@@ -12,6 +19,25 @@ const moods = [
   { id: 4, moodName: "4happy" },
   { id: 5, moodName: "5veryhappy" },
 ];
+
+const switchMoodImg = (mood) => {
+  switch (mood) {
+    case "1bad":
+      return badMood;
+    case "2sad":
+      return sadMood;
+    case "3neutral":
+      return neutralMood;
+    case "4happy":
+      return happyMood;
+    case "5veryhappy":
+      return veryhappyMood;
+    case "0nocomment":
+      return noCommentMood;
+    default:
+      return noCommentMood;
+  }
+};
 
 const TableCell = ({
   rowIndex,
@@ -47,6 +73,7 @@ const TableCell = ({
     setNumberlingHandler(nextNum);
     return nextNum;
   };
+
   const removeTextButton = (e, rowIndex, key) => {
     const updatedDataWeek = [...actualWeek];
     const dateKey = Object.keys(actualWeek[rowIndex])[0];
@@ -210,13 +237,56 @@ const TableCell = ({
           />
         )
       ) : (
-        <div
-          onClick={() => onActivate(rowIndex, columnKey, textAreaRef)}
-          dangerouslySetInnerHTML={{ __html: value.replace(/\n/g, "<br>") }}
-        />
+        <div onClick={() => onActivate(rowIndex, columnKey, textAreaRef)}>
+          {value.split("\n").map((line, index) => (
+            <React.Fragment key={index}>
+              {line}
+              <br />
+            </React.Fragment>
+          ))}
+          {columnKey === "wellBeing" && (
+            <div
+              style={{
+                float: "right",
+                paddingRight: "18px",
+              }}
+            >
+              <img
+                src={switchMoodImg(rowData[dropDateKey]["dayRating"])}
+                alt="mood"
+                width={30}
+              />
+            </div>
+          )}
+        </div>
       )}
     </td>
   );
 };
 
 export default TableCell;
+// position: "absolute", right: "10px"
+{
+  /* <Rest
+restTime={restTime}
+setRestTime={setRestTime}
+onChange={onChange}
+actualWeek={actualWeek}
+activeCell={activeCell}
+value={value}
+/>
+)
+) : (
+<div
+onClick={() => onActivate(rowIndex, columnKey, textAreaRef)}
+dangerouslySetInnerHTML={{ __html: value.replace(/\n/g, "<br>") }}
+>
+{columnKey === "wellBeing" && <p>dada</p>}
+</div>
+)}
+</td>
+);
+};
+
+export default TableCell; */
+}

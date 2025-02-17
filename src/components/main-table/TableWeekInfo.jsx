@@ -5,7 +5,7 @@ import {
   averageSleepDuration,
 } from "./utilsForTable";
 import classes from "./Table.module.css";
-import ModalPreasure from "../Modal-preasure/ModalPreasure";
+import ModalPreasure from "../modal-preasure/ModalPreasure";
 
 const TableWeekInfo = ({ actualWeek }) => {
   const [modalActive, setModalActive] = useState(false);
@@ -49,8 +49,6 @@ const TableWeekInfo = ({ actualWeek }) => {
           </div>
         </div>
       </div>
-      <button type="button">DADADA</button>
-      <button type="button">DADADA</button>;
       <ModalPreasure active={modalActive} setActive={setModalActive}>
         {handleAveragePreasure(averagePreasure(actualWeek)[1])}
       </ModalPreasure>

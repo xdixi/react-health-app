@@ -16,7 +16,6 @@
 .table-main th,
 td,
 tr {
-  /* height: 200px; */
   border: 1px solid black;
 }
 
@@ -41,6 +40,7 @@ tr {
 }
 
 .div-in-textarea {
+  display: flex;
   height: 350px;
   position: relative;
   padding: 0;
@@ -198,12 +198,18 @@ textarea {
   transition: transform 0.8s;
 }
 
+input[type="radio"] {
+  margin: 0;
+}
+
 input[type="radio"]:hover {
+  margin: 0;
   opacity: 100%;
   transform: scale(1.2);
 }
 
 input[type="radio"]:checked {
+  margin: 0;
   opacity: 100%;
   transform: scale(1.2);
 }

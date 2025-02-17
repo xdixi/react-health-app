@@ -5,6 +5,33 @@ import "react-calendar/dist/Calendar.css";
 import "./index.css";
 import { getWeek } from "../utils";
 
+const generateYearData = (startYear) => {
+  let actualDate = new Date(startYear);
+  let actualYear = [];
+
+  for (let i = 0; i < 365; i++) {
+    let day = actualDate.getDate();
+    let month = actualDate.getMonth();
+    let year = actualDate.getFullYear();
+    let dateString = `${year}.${month + 1}.${day}`;
+
+    const dayData = {
+      [dateString]: {
+        rest: "",
+        preasure: "",
+        wellBeing: "",
+        pills: "",
+        dayRating: "",
+      },
+    };
+
+    actualYear.push(dayData);
+    actualDate.setDate(actualDate.getDate() + 1);
+  }
+
+  return actualYear;
+};
+
 const prevURL = [];
 
 function MyCalendar() {
@@ -47,6 +74,15 @@ function MyCalendar() {
       }
     });
   }, [value]);
+
+  useEffect(() => {
+    const storedData = localStorage.getItem("yearData2025");
+
+    if (!storedData) {
+      const yearData = generateYearData("2025");
+      localStorage.setItem("yearData2025", JSON.stringify(yearData));
+    }
+  }, []);
 
   return (
     <div
