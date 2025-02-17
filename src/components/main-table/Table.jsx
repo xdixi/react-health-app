@@ -4,9 +4,19 @@ import {
   setPositionButtonInTextarea,
   formatDateInTable,
   averageSleepDuration,
-  showDayRating,
+  averageMoodRating,
+  averagePreasure,
 } from "./utilsForTable";
 import { useNavigate, useParams } from "react-router-dom";
+import ModalPreasure from "../Modal-preasure/ModalPreasure";
+
+const moods = [
+  { id: 1, moodName: "1bad" },
+  { id: 2, moodName: "2sad" },
+  { id: 3, moodName: "3neutral" },
+  { id: 4, moodName: "4happy" },
+  { id: 5, moodName: "5veryhappy" },
+];
 
 function getCurrentWeek(week) {
   const storedData = JSON.parse(localStorage.getItem("yearData2025"));
@@ -27,18 +37,25 @@ function getCurrentWeek(week) {
 
 export default function Table() {
   const [actualWeek, setActualWeek] = useState([]);
-  const [selectedMoods, setSelectedMoods] = useState({});
+  const [numberlingHandler, setNumberlingHandler] = useState(0); // в помощь для определения втавки порядкового номера
   const textAreaRef = useRef(null);
-  const inputMoodRef = useRef(null);
+  const [numberlingHandler2, setNumberlingHandler2] = useState(false); // автовставка '1)' при пустой строке
   const [activeCell, setActiveCell] = useState(null); // Активная ячейка {row, key}
+  const [modalActive, setModalActive] = useState(false);
   let navigate = useNavigate();
   let { week } = useParams();
-
+  console.log("first", week);
   const navigateToCalendar = () => {
-    navigate(`/`);
+    navigate("/");
   };
 
   const handleCellClick = (rowIndex, key) => {
+    const updatedDataWeek = [...actualWeek];
+    const dateKey = Object.keys(actualWeek[rowIndex])[0]; // Дата
+    if (!updatedDataWeek[rowIndex][dateKey][key] && key === "preasure") {
+      updatedDataWeek[rowIndex][dateKey][key] = "1)";
+    }
+    setActualWeek(updatedDataWeek);
     setPositionButtonInTextarea(activeCell);
     setActiveCell({ row: rowIndex, key: key });
     const area = textAreaRef.current;
@@ -47,15 +64,52 @@ export default function Table() {
     }
   };
 
+  const addNumberingInPreasureColumn = (currWeek, row) => {
+    let nextNum = 0;
+    currWeek.forEach((prop, i) => {
+      if (row === i) {
+        let preasureTxt = Object.values(prop)[0].preasure;
+        Array.from(preasureTxt).forEach((_, i, str) => {
+          if (str[i] === ")" && +str[i - 1] >= 0 && +str[i - 1] <= 9) {
+            nextNum = +str[i - 1] + 1;
+          }
+        });
+      }
+    });
+    setNumberlingHandler(nextNum);
+    return nextNum;
+  };
+
   const handleCellChange = (e, rowIndex, key) => {
+    let serialNumber = addNumberingInPreasureColumn(actualWeek, rowIndex);
     const updatedDataWeek = [...actualWeek];
     const dateKey = Object.keys(actualWeek[rowIndex])[0]; // Дата
-    updatedDataWeek[rowIndex][dateKey][key] = e.target.value;
+    if (
+      serialNumber &&
+      numberlingHandler === serialNumber &&
+      key === "preasure"
+    ) {
+      serialNumber = String(serialNumber) + `)`;
+      updatedDataWeek[rowIndex][dateKey][key] = e.target.value + serialNumber;
+    } else {
+      updatedDataWeek[rowIndex][dateKey][key] = e.target.value;
+      setNumberlingHandler(0);
+    }
+    if (updatedDataWeek[rowIndex][dateKey][key] === "" && key === "preasure") {
+      setNumberlingHandler2(true);
+    }
+    if (
+      updatedDataWeek[rowIndex][dateKey][key] &&
+      numberlingHandler2 &&
+      key === "preasure"
+    ) {
+      updatedDataWeek[rowIndex][dateKey][key] = "1)" + e.target.value;
+      setNumberlingHandler2(false);
+    }
     setActiveCell({ row: rowIndex, key });
     setActualWeek(updatedDataWeek);
 
     const storedData = JSON.parse(localStorage.getItem("yearData2025"));
-
     const updatedYearData = storedData.map((day) => {
       const dayKey = Object.keys(day)[0];
       if (dateKey === dayKey) {
@@ -63,7 +117,6 @@ export default function Table() {
       }
       return day;
     });
-
     localStorage.setItem("yearData2025", JSON.stringify(updatedYearData));
   };
 
@@ -88,6 +141,8 @@ export default function Table() {
   };
 
   const handleBlur = (e, rowIndex, key) => {
+    const updatedDataWeek = [...actualWeek];
+    const dateKey = Object.keys(actualWeek[rowIndex])[0]; // Дата
     const area = textAreaRef.current;
     if (
       e.relatedTarget &&
@@ -98,17 +153,55 @@ export default function Table() {
       area.focus();
     } else if (
       e.relatedTarget &&
+      e.relatedTarget.className.includes("button-agree") &&
+      updatedDataWeek[rowIndex][dateKey][key] === "1)" &&
+      key === "preasure"
+    ) {
+      setActiveCell(null);
+      updatedDataWeek[rowIndex][dateKey][key] = "";
+    } else if (
+      e.relatedTarget &&
       e.relatedTarget.className.includes("button-agree")
     ) {
       setActiveCell(null);
+    } else {
+      if (
+        updatedDataWeek[rowIndex][dateKey][key] === "1)" &&
+        key === "preasure"
+      ) {
+        updatedDataWeek[rowIndex][dateKey][key] = "";
+      }
+      setActualWeek(updatedDataWeek);
     }
   };
 
-  const handleMoodChange = (rowIndex, moodValue) => {
-    setSelectedMoods((prevState) => ({
-      ...prevState,
-      [rowIndex]: moodValue,
-    }));
+  const handleMoodChange = (rowIndex, date, moodValue) => {
+    const key = "dayRating";
+    const updatedDataWeek = [...actualWeek];
+    updatedDataWeek[rowIndex][date][key] = moodValue;
+    setActualWeek(updatedDataWeek);
+    const storedData = JSON.parse(localStorage.getItem("yearData2025"));
+    const updatedYearData = storedData.map((day) => {
+      const dayKey = Object.keys(day)[0];
+      if (date === dayKey) {
+        return updatedDataWeek[rowIndex];
+      }
+      return day;
+    });
+    localStorage.setItem("yearData2025", JSON.stringify(updatedYearData));
+  };
+
+  const handleAveragePreasure = (obj) => {
+    let txt = "в этот день не было ни одного измерения";
+    return Object.keys(obj).map((day, i) => {
+      return (
+        <div key={i}>
+          <p>
+            {day}: {obj[day] ? obj[day] : txt}
+          </p>
+        </div>
+      );
+    });
   };
 
   useEffect(() => {
@@ -121,11 +214,17 @@ export default function Table() {
         textArea.setSelectionRange(length, length);
         textArea.dataset.cursorInitialized = "true";
       }
-
       const handleKeyDown = (e) => {
         if ((e.key === "Enter" && !e.shiftKey) || e.key === "Escape") {
           setActiveCell(null);
           textArea.blur();
+        } else if (
+          e.key === "Enter" &&
+          e.shiftKey &&
+          activeCell.key === "preasure"
+        ) {
+          const row = activeCell.row;
+          addNumberingInPreasureColumn(actualWeek, row);
         }
       };
 
@@ -158,10 +257,7 @@ export default function Table() {
             <tr>
               <th className={classes["table-data"]}>Дата 22:30 - 08:40</th>
               <th className={classes["table-sleep"]}>Сон</th>
-              <th className={classes["table-preasure"]}>Давление</th>
-              <th className={classes["table-preasure-after"]}>
-                После чего измерял
-              </th>
+              <th className={classes["table-preasure"]}>Давление и пульс</th>
               <th className={classes["table-well-being"]}>Самочувствие</th>
               <th className={classes["table-farma"]}>Таблетки</th>
             </tr>
@@ -170,7 +266,6 @@ export default function Table() {
             {actualWeek.map((row, rowIndex) => {
               const dateKey = Object.keys(row)[0]; // Дата
               const rowData = row[dateKey];
-
               return (
                 <tr key={rowIndex}>
                   <td>
@@ -180,6 +275,7 @@ export default function Table() {
                     <br />
                     {formatDateInTable(dateKey)[2]}
                   </td>
+
                   {Object.keys(rowData)
                     .filter((key) => key !== "dayRating")
                     .map((key) => (
@@ -226,204 +322,84 @@ export default function Table() {
             })}
           </tbody>
         </table>
+        <table className={classes["table-moods"]}>
+          <tbody>
+            {actualWeek.map((row, rowIndex) => {
+              const dateKey = Object.keys(row)[0]; // Дата
+              return (
+                <tr key={rowIndex}>
+                  <td className={classes["table-moods--td"]}>
+                    {moods.map((m) => (
+                      <MoodInput
+                        key={m.id}
+                        rowIndex={rowIndex}
+                        row={row}
+                        dateKey={dateKey}
+                        handleMoodChange={handleMoodChange}
+                        actualWeekKey={"dayRating"}
+                        moodName={m.moodName}
+                      />
+                    ))}
+                  </td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
       </div>
       ;
       <div className={classes["weekly-information"]}>
         <div>
           <p>{averageSleepDuration(actualWeek)}</p>
+          <div style={{ display: "flex" }}>
+            {" "}
+            <p>{averageMoodRating(actualWeek)[0]}</p>
+            <img
+              style={{ paddingLeft: "10px", paddingTop: "10px" }}
+              src={averageMoodRating(actualWeek)[1]}
+              alt=""
+              width={"30px"}
+              height={"30px"}
+            />
+          </div>
+          <div style={{ display: "flex" }}>
+            <p>{averagePreasure(actualWeek)[0]}. Больше информации</p>
+            <button
+              className={classes[`button-moreinfo`]}
+              type="button"
+              onClick={() => setModalActive(true)}
+            ></button>{" "}
+          </div>
         </div>
       </div>
       <button type="button">DADADA</button>
       <button type="button">DADADA</button>;
+      <ModalPreasure active={modalActive} setActive={setModalActive}>
+        {handleAveragePreasure(averagePreasure(actualWeek)[1])}
+      </ModalPreasure>
     </div>
   );
 }
 
-// const rowData = row[dateKey];
-// Object.keys(rowData)
-//   .filter((key) => key === "dayRating")
-//   .map((key) => {
-//     const dayOfWeek = rowData[key];
-
-//     Object.keys(dayOfWeek).map((day) => {
-//       console.log("day", day);
-//     });
-//   });
-
-// return (
-//   <tr key={rowIndex}>
-//     <td>
-//       {" "}
-//       <div className={classes["div-mood"]}>
-//         <input
-//           className={classes.deadmood}
-//           type="radio"
-//           name={`mood-${rowIndex}`}
-//           id={`radio1-${rowIndex}`}
-//           value="dead"
-//           checked={selectedMoods[weekdayRu] === "dead"}
-//           onChange={() => handleMoodChange(weekdayRu, "dead")}
-//         />
-//       </div>
-//       <div className={classes["div-mood"]}>
-//         <input
-//           className={classes.sadmood}
-//           type="radio"
-//           name={`mood-${rowIndex}`}
-//           id={`radio2-${rowIndex}`}
-//           value="sad"
-//           checked={selectedMoods[weekdayRu] === "sad"}
-//           onChange={() => handleMoodChange(weekdayRu, "sad")}
-//         />
-//       </div>
-//       <div className={classes["div-mood"]}>
-//         <input
-//           className={classes.neutralmood}
-//           type="radio"
-//           name={`mood-${rowIndex}`}
-//           id={`radio3-${rowIndex}`}
-//           value="neutral"
-//           checked={selectedMoods[weekdayRu] === "neutral"}
-//           onChange={() => handleMoodChange(weekdayRu, "neutral")}
-//         />
-//       </div>
-//       <div className={classes["div-mood"]}>
-//         <input
-//           className={classes.happymood}
-//           type="radio"
-//           name={`mood-${rowIndex}`}
-//           id={`radio4-${rowIndex}`}
-//           value="happy"
-//           checked={selectedMoods[weekdayRu] === "happy"}
-//           onChange={() => handleMoodChange(weekdayRu, "happy")}
-//         />
-//       </div>
-//       <div className={classes["div-mood"]}>
-//         <input
-//           className={classes.veryhappymood}
-//           type="radio"
-//           name={`mood-${rowIndex}`}
-//           id={`radio5-${rowIndex}`}
-//           value="veryhappy"
-//           checked={selectedMoods[weekdayRu] === "veryhappy"}
-//           onChange={() =>
-//             handleMoodChange(weekdayRu, "veryhappy")
-//           }
-//         />
-//       </div>
-//     </td>
-//   </tr>
-// );
-
-// const Cell = ({ handleCellClick, rowIndex, id, rowData }) => {
-//   return (
-//     <div
-//       onClick={() => handleCellClick(rowIndex, id)}
-//       dangerouslySetInnerHTML={{
-//         __html: rowData[id].replace(/\n/g, "<br>"),
-//       }}
-//     ></div>
-//   );
-// };
-
-// const Textarea = ({
-//   handleCellClick,
-//   rowIndex,
-//   id,
-//   textAreaRef,
-//   handleCellChange,
-//   rowData,
-//   handleBlur,
-//   activeCell,
-// }) => {
-//   return (
-//     <div
-//       onClick={() => handleCellClick(rowIndex, id)}
-//       className={classes["div-in-textarea"]}
-//     >
-//       <textarea
-//         ref={textAreaRef}
-//         value={rowData[id]}
-//         onChange={(e) => handleCellChange(e, rowIndex, id)}
-//         onBlur={(e) => handleBlur(e, rowIndex, id)}
-//         autoFocus
-//       />
-//       <button className={classes["button-remove"]} type="button"></button>
-//       <button
-//         className={classes["button-agree"]}
-//         style={setPositionButtonInTextarea(activeCell?.key)}
-//         type="button"
-//       ></button>
-//     </div>
-//   );
-// };
-
-// const DayRating = ({
-//   handleCellClick,
-//   rowIndex,
-//   id,
-//   inputMoodRef,
-//   isShow,
-//   rowData,
-// }) => {
-//   if (isShow(rowData) && id === "dayRating") {
-//     return (
-//       <div
-//         className={classes["day-rating-container"]}
-//         // onClick={() => handleCellClick(rowIndex, id)}
-//       >
-//         <div>
-//           <input
-//             ref={inputMoodRef}
-//             className={classes.deadmood}
-//             type="radio"
-//             name={`mood-${id}`}
-//             id="radio1"
-//           />
-//         </div>
-
-//         <div>
-//           <input
-//             className={classes["sadmood"]}
-//             type="radio"
-//             name={`mood-${id}`}
-//             id="radio2"
-//           />
-//         </div>
-//         <div>
-//           <input
-//             className={classes["neutralmood"]}
-//             type="radio"
-//             name={`mood-${id}`}
-//             id="radio3"
-//           />
-//         </div>
-//         <div>
-//           <input
-//             className={classes["happymood"]}
-//             type="radio"
-//             name={`mood-${id}`}
-//             id="radio4"
-//           />
-//         </div>
-//         <div>
-//           <input
-//             className={classes["veryhappymood"]}
-//             type="radio"
-//             name={`mood-${id}`}
-//             id="radio5"
-//           />
-//         </div>
-//       </div>
-//     );
-//   }
-
-//   return (
-//     <div
-//       onClick={() => handleCellClick(rowIndex, id)}
-//       dangerouslySetInnerHTML={{
-//         __html: rowData[id].replace(/\n/g, "<br>"),
-//       }}
-//     ></div>
-//   );
-// };
+const MoodInput = ({
+  rowIndex,
+  row,
+  dateKey,
+  handleMoodChange,
+  actualWeekKey,
+  moodName,
+}) => {
+  return (
+    <div className={classes["div-mood"]}>
+      <input
+        className={classes[`${moodName.slice(1)}mood`]}
+        type="radio"
+        name={`mood-${rowIndex}`}
+        id={`radio1-${rowIndex}`}
+        value="bad"
+        checked={row[dateKey][actualWeekKey] === moodName}
+        onChange={() => handleMoodChange(rowIndex, dateKey, moodName)}
+      />
+    </div>
+  );
+};

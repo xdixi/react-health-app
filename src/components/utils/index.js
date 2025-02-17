@@ -1,4 +1,4 @@
-function getWeek(currDate = new Date()) {
+const getWeek = (currDate = new Date()) => {
   const dayOfweek = currDate.getDay();
   const startOfWeek = new Date(currDate);
   startOfWeek.setDate(
@@ -6,7 +6,7 @@ function getWeek(currDate = new Date()) {
   );
   const endOfWeek = new Date(startOfWeek);
   endOfWeek.setDate(startOfWeek.getDate() + 6);
-  return [startOfWeek, endOfWeek];
-}
+  return [startOfWeek, endOfWeek]; //  [Mon Jan 20 2025 02:27:56 GMT+0300 (Москва, стандартное время), Sun Jan 26 2025 02:27:56 GMT+0300 (Москва, стандартное время)]
+};
 
 export { getWeek };

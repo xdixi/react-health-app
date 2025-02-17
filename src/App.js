@@ -1,8 +1,7 @@
 import React, { useEffect } from "react";
-import Table from "./components/main-table/Table";
 import { Routes, Route, BrowserRouter, Navigate } from "react-router";
 import MyCalendar from "./components/calendar/Calendar";
-import MyComponent from "./components/MyComponent";
+import TableVer2 from "./components/main-table/TableVer2";
 
 function generateYearData(startYear) {
   let actualDate = new Date(startYear);
@@ -17,24 +16,15 @@ function generateYearData(startYear) {
     const dayData = {
       [dateString]: {
         rest: "",
-        pressure: "",
-        afterWhichMeasured: "",
+        preasure: "",
         wellBeing: "",
         pills: "",
-        dayRating: {
-          пн: "",
-          вт: "",
-          ср: "",
-          чт: "",
-          пт: "",
-          сб: "",
-          вс: "",
-        },
+        dayRating: "",
       },
     };
 
     actualYear.push(dayData);
-    actualDate.setDate(actualDate.getDate() + 1); // Увеличиваем дату на 1 день
+    actualDate.setDate(actualDate.getDate() + 1);
   }
 
   return actualYear;
@@ -47,7 +37,6 @@ function App() {
     if (!storedData) {
       const yearData = generateYearData("2025");
       localStorage.setItem("yearData2025", JSON.stringify(yearData));
-      console.log("yearData", yearData);
     }
   }, []);
 
@@ -56,8 +45,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Navigate to="/calendar" replace />} />
         <Route path="/calendar" element={<MyCalendar />} />
-        <Route path="/calendar/:week" element={<Table />} />
-        <Route path="/asd" element={<MyComponent />} />
+        <Route path="/calendar/:week" element={<TableVer2 />} />
       </Routes>
     </BrowserRouter>
   );

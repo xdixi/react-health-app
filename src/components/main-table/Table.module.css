@@ -1,36 +1,62 @@
 .table-main {
   border-collapse: collapse;
-  width: 800px;
+  width: 1000px;
   margin-top: 50px;
   margin-left: 50px;
 }
 
-th,
-td,
-tr {
-  border: 1px solid black;
-  /* text-align: center; */
+/* закрепить заголовок при скролле */
+.table-main thead th {
+  position: sticky;
+  top: 0;
+  background-color: white;
+  z-index: 10;
 }
 
-td:first-child {
+.table-main th,
+td,
+tr {
+  /* height: 200px; */
+  border: 1px solid black;
+}
+
+.table-main th {
+  padding: 10px;
+}
+
+.table-main th:first-child {
+  padding-left: 0px;
+  padding-right: 0px;
+}
+
+.table-main td:first-child {
   text-align: center;
 }
 
-tbody > tr > td > div {
-  height: 204px;
+.table-main tbody > tr > td > div {
+  height: 300px;
   word-break: break-all;
   font-size: 16px;
   overflow: auto;
 }
 
-.div-mood {
-  height: auto;
-}
-
 .div-in-textarea {
+  height: 350px;
   position: relative;
   padding: 0;
   overflow: hidden;
+}
+
+.wellbeing-textarea {
+  width: 75%;
+}
+
+textarea {
+  width: 95%;
+  height: 260px;
+  font-size: 16px;
+  resize: none;
+  background-color: lightgreen;
 }
 
 .table-data {
@@ -42,7 +68,7 @@ tbody > tr > td > div {
 }
 
 .table-preasure {
-  width: 110px;
+  width: 150px;
 }
 
 .table-preasure-after {
@@ -50,25 +76,17 @@ tbody > tr > td > div {
 }
 
 .table-well-being {
-  width: 170px;
+  width: 180px;
 }
 
 .table-farma {
   width: 110px;
 }
 
-textarea {
-  width: 96%;
-  height: 160px;
-  font-size: 16px;
-  resize: none;
-  background-color: lightgreen;
-}
-
 .button-agree {
   width: 25px;
   position: absolute;
-  top: 174px;
+  top: 270px;
   height: 25px;
   background-image: url("../../icons/agree.png");
   background-size: cover;
@@ -82,7 +100,7 @@ textarea {
 .button-remove {
   width: 25px;
   position: absolute;
-  top: 174px;
+  top: 270px;
   left: 10px;
   height: 25px;
   background-image: url("../../icons/remove.png");
@@ -102,48 +120,100 @@ textarea {
   border: 1px solid black;
 }
 
-input[type="radio"] {
+.badmood {
+  background-image: url("../../icons/1bad.png");
+  background-size: 100% 100%;
   padding: 0px;
   appearance: none;
   width: 30px;
   height: 30px;
   border-radius: 10px;
   opacity: 40%;
-}
-
-.deadmood {
-  background-image: url("../../icons/1dead.png");
-  background-size: 100% 100%;
+  cursor: pointer;
+  transition: transform 0.8s;
 }
 
 .sadmood {
   background-image: url("../../icons/2sad.png");
   background-size: 100% 100%;
+  padding: 0px;
+  appearance: none;
+  width: 30px;
+  height: 30px;
+  border-radius: 10px;
+  opacity: 40%;
+  cursor: pointer;
+  transition: transform 0.8s;
 }
 
 .neutralmood {
   background-image: url("../../icons/3neutral.png");
   background-size: 100% 100%;
+  padding: 0px;
+  appearance: none;
+  width: 30px;
+  height: 30px;
+  border-radius: 10px;
+  opacity: 40%;
+  cursor: pointer;
+  transition: transform 0.8s;
 }
 
 .happymood {
   background-image: url("../../icons/4happy.png");
   background-size: 100% 100%;
+  padding: 0px;
+  appearance: none;
+  width: 30px;
+  height: 30px;
+  border-radius: 10px;
+  opacity: 40%;
+  cursor: pointer;
+  transition: transform 0.8s;
 }
 
 .veryhappymood {
   background-image: url("../../icons/5veryhappy.png");
   background-size: 100% 100%;
+  padding: 0px;
+  appearance: none;
+  width: 30px;
+  height: 30px;
+  border-radius: 10px;
+  opacity: 40%;
+  cursor: pointer;
+  transition: transform 0.8s;
+}
+
+.nocommentmood {
+  background-image: url("../../icons/0no-comment.png");
+  background-size: 100% 100%;
+  padding: 0px;
+  appearance: none;
+  width: 30px;
+  height: 30px;
+  border-radius: 10px;
+  opacity: 40%;
+  cursor: pointer;
+  transition: transform 0.8s;
 }
 
 input[type="radio"]:hover {
   opacity: 100%;
+  transform: scale(1.2);
 }
 
 input[type="radio"]:checked {
   opacity: 100%;
+  transform: scale(1.2);
 }
 
-/* input[type="radio"] {
-  border-radius: 50%;
-} */
+.button-moreinfo {
+  border: none;
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+  background-color: white;
+  background-image: url("../../icons/moreinfobutton.png");
+  background-size: 100% 100%;
+}
