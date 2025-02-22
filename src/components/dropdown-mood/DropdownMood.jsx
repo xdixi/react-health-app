@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "../dropdown-mood/mycomp.css";
+import classes from "./Dropdown.module.css";
 
 import badMood from "../../icons/1bad.png";
 import sadMood from "../../icons/2sad.png";
@@ -28,7 +28,7 @@ const switchMoodImg = (mood) => {
   }
 };
 
-export default function DropdownMood({
+const DropdownMood = ({
   value,
   options,
   renderItem,
@@ -37,7 +37,7 @@ export default function DropdownMood({
   dateKey,
   handleMoodChange,
   actualWeekKey,
-}) {
+}) => {
   const [open, setOpen] = useState(false);
 
   const setSelectedOptionHandler = (mood) => {
@@ -49,28 +49,19 @@ export default function DropdownMood({
     setOpen(false);
   };
   return (
-    <div
-      style={{
-        justifyContent: "center",
-        width: "50px",
-        height: "100px",
-        paddingLeft: "8px",
-        paddingTop: "21px",
-      }}
-      onMouseLeave={() => setOpen(false)}
-    >
-      <div onClick={() => setOpen(false)} onMouseEnter={() => setOpen(true)}>
-        {
-          <img
-            src={switchMoodImg(value)}
-            alt=""
-            width={"30px"}
-            height={"30px"}
-          />
-        }
-      </div>
-      {open && (
-        <div className="select-options">
+    <div className={classes["dropdown-wrapper"]}>
+      <div className={classes.dropdown} onMouseLeave={() => setOpen(false)}>
+        <div onClick={() => setOpen(false)} onMouseEnter={() => setOpen(true)}>
+          {
+            <img
+              src={switchMoodImg(value)}
+              alt="mood"
+              width={"30px"}
+              height={"30px"}
+            />
+          }
+        </div>
+        {open && (
           <ul>
             {options.map((mood) => {
               return renderItem(
@@ -84,8 +75,10 @@ export default function DropdownMood({
               );
             })}
           </ul>
-        </div>
-      )}
+        )}
+      </div>
     </div>
   );
-}
+};
+
+export default DropdownMood;

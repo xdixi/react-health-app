@@ -24,30 +24,28 @@ const TableWeekInfo = ({ actualWeek }) => {
   };
 
   return (
-    <div>
-      <div className={classes["weekly-information"]}>
-        <div>
-          <p>{averageSleepDuration(actualWeek)}</p>
-          <div style={{ display: "flex" }}>
-            {" "}
-            <p>{averageMoodRating(actualWeek)[0]}</p>
-            <img
-              style={{ paddingLeft: "10px", paddingTop: "10px" }}
-              src={averageMoodRating(actualWeek)[1]}
-              alt=""
-              width={"30px"}
-              height={"30px"}
-            />
-          </div>
-          <div style={{ display: "flex" }}>
-            <p>{averagePreasure(actualWeek)[0]}. Больше информации</p>
-            <button
-              className={classes[`button-moreinfo`]}
-              type="button"
-              onClick={() => setModalActive(true)}
-            ></button>{" "}
-          </div>
-        </div>
+    <div className={classes["weekly-information"]}>
+      <div className={classes["weekly-information--wrapper"]}>
+        <p>{averageSleepDuration(actualWeek)}</p>
+      </div>
+      <div className={classes["weekly-information--wrapper"]}>
+        {" "}
+        <p>{averageMoodRating(actualWeek)[0]}</p>
+        <img
+          style={{ marginLeft: "10px" }}
+          src={averageMoodRating(actualWeek)[1]}
+          alt="week mood"
+          width={"30px"}
+          height={"30px"}
+        />
+      </div>
+      <div className={classes["weekly-information--wrapper"]}>
+        <p>{averagePreasure(actualWeek)[0]}. Больше информации</p>
+        <button
+          className={classes[`button-moreinfo`]}
+          type="button"
+          onClick={() => setModalActive(true)}
+        ></button>{" "}
       </div>
       <Modal active={modalActive} setActive={setModalActive}>
         {handleAveragePreasure(averagePreasure(actualWeek)[1])}

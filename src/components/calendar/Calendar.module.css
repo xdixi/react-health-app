@@ -1,0 +1,26 @@
+.react-calendar__tile--hasActive {
+  background-color: #006edc !important;
+  color: #fff !important;
+}
+
+.calendar-wrapper {
+  position: relative;
+  display: grid;
+  justify-items: center;
+  margin-top: 100px;
+}
+
+.button-forward-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.button-calendar__forward {
+  width: 38px;
+  height: 38px;
+  margin-left: 5px;
+  background-image: url("../../icons/calendar-week.png");
+  background-size: 100% 100%;
+}

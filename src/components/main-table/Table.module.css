@@ -1,8 +1,6 @@
 .table-main {
   border-collapse: collapse;
   width: 1000px;
-  margin-top: 50px;
-  margin-left: 50px;
 }
 
 /* закрепить заголовок при скролле */
@@ -37,26 +35,22 @@ tr {
   word-break: break-all;
   font-size: 16px;
   overflow: auto;
+  padding: 5px;
 }
 
 .div-in-textarea {
   display: flex;
-  height: 350px;
-  position: relative;
-  padding: 0;
-  overflow: hidden;
-}
-
-.wellbeing-textarea {
-  width: 75%;
 }
 
 textarea {
-  width: 95%;
-  height: 260px;
+  width: 101%;
+  height: 264px;
   font-size: 16px;
+  font-family: Arial, Helvetica, sans-serif;
+  padding: 4px 5px 5px 4px;
   resize: none;
   background-color: lightgreen;
+  line-height: 150%;
 }
 
 .table-data {
@@ -67,8 +61,17 @@ textarea {
   width: 140px;
 }
 
+.tablerow-rest {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  flex-wrap: wrap;
+}
+
 .table-preasure {
-  width: 150px;
+  text-align: center;
+  position: relative; /* Для `Tooltip` */
+  width: 230px;
 }
 
 .table-well-being {
@@ -109,11 +112,20 @@ textarea {
 }
 
 .weekly-information {
-  width: 800px;
+  max-width: 1000px;
   height: 300px;
-  margin-top: 50px;
-  margin-left: 50px;
+  margin: 50px 0px 50px 0px;
   border: 1px solid black;
+}
+
+.weekly-information--wrapper {
+  display: flex;
+}
+
+.weekly-information div {
+  align-items: center;
+  flex-wrap: wrap;
+  padding: 8px;
 }
 
 .badmood {
@@ -234,13 +246,20 @@ input[type="radio"]:checked {
 }
 
 .tooltip-wrapper {
+  width: 30px;
+  height: 30px;
   display: inline-block;
-  position: relative; /* Для корректного позиционирования */
+  position: relative;
+  vertical-align: middle;
+  margin-left: 5px;
   cursor: pointer;
+  background-image: url("../../icons/tooltippng.png");
+  background-size: 100% 100%;
 }
 
 .tooltip {
   position: absolute;
+  width: 240px;
   padding: 10px 20px;
   border: 1px solid #b3c9ce;
   border-radius: 4px;
@@ -250,4 +269,46 @@ input[type="radio"]:checked {
   background: #fff;
   box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.3);
   z-index: 1000;
+}
+
+.button-clock-change {
+  width: 20px;
+  height: 20px;
+  margin-left: 5px;
+  background-image: url("../../icons/clock-change.png");
+  background-size: 100% 100%;
+}
+
+.button-clock-set {
+  width: 20px;
+  height: 20px;
+  margin-left: 5px;
+  background-image: url("../../icons/clock-set.png");
+  background-size: 100% 100%;
+}
+
+.button-clock-ok {
+  width: 30px;
+  height: 20px;
+  margin-left: 10px;
+  background-color: rgb(28, 240, 28);
+  border: 1px solid black;
+  border-radius: 25px;
+}
+
+.button-clock-ok__disabled {
+  width: 30px;
+  height: 20px;
+  margin-left: 10px;
+  background-color: rgb(184, 190, 184);
+  border: 1px solid black;
+  border-radius: 25px;
+}
+
+.button-return {
+  width: 20px;
+  height: 20px;
+  margin-left: 5px;
+  background-image: url("../../icons/return-button.png");
+  background-size: 100% 100%;
 }

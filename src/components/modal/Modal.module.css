@@ -32,14 +32,12 @@
 }
 
 .button-close {
-  position: absolute;
-  left: 405px;
-  top: 10px;
+  float: right;
   background-image: url("../../icons/remove.png");
   background-color: white;
   background-size: cover;
-  width: 25px;
-  height: 25px;
+  width: 22px;
+  height: 22px;
   border: none;
   cursor: pointer;
 }

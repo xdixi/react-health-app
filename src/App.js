@@ -3,6 +3,7 @@ import { Routes, Route, BrowserRouter, Navigate } from "react-router";
 import MyCalendar from "./components/calendar/Calendar";
 import TableVer2 from "./components/main-table/TableVer2";
 import ErrorPage from "./components/error404/ErrorPage";
+import "./styles/reset.css";
 
 function App() {
   return (

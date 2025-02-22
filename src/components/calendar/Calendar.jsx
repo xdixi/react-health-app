@@ -2,44 +2,20 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
-import "./index.css";
-import { getWeek } from "../utils";
+import classes from "./Calendar.module.css";
+import { generateYearData, getWeek } from "./utilsCalendar";
+import useWindowSize from "../hooks/useWindowSize";
 
-const generateYearData = (startYear) => {
-  let actualDate = new Date(startYear);
-  let actualYear = [];
-
-  for (let i = 0; i < 365; i++) {
-    let day = actualDate.getDate();
-    let month = actualDate.getMonth();
-    let year = actualDate.getFullYear();
-    let dateString = `${year}.${month + 1}.${day}`;
-
-    const dayData = {
-      [dateString]: {
-        rest: "",
-        preasure: "",
-        wellBeing: "",
-        pills: "",
-        dayRating: "",
-      },
-    };
-
-    actualYear.push(dayData);
-    actualDate.setDate(actualDate.getDate() + 1);
-  }
-
-  return actualYear;
-};
+import buttonForward from "../../icons/button-forward.png";
 
 const prevURL = [];
 
-function MyCalendar() {
+const MyCalendar = () => {
   const [value, onChange] = useState(prevURL[prevURL.length - 1] || getWeek());
   const [prevURLHandler, setPrevURLHandler] = useState([]); // чтобы не заполнять prevURL
   const [buttonPositionTop, setButtonPositionTop] = useState("0px");
-  const [buttonPositionLeft, setButtonPositionLeft] = useState("0px");
-
+  const [buttonPositionLeft, setButtonPositionLeft] = useState("50%");
+  const { width } = useWindowSize();
   let navigate = useNavigate();
 
   const chooseWeek = (currDate, e) => {
@@ -68,9 +44,8 @@ function MyCalendar() {
       // время на обновление DOM
       const activeDay = document.querySelector(".react-calendar__tile--active");
       if (activeDay) {
-        const { top, left } = activeDay.getBoundingClientRect();
-        setButtonPositionTop(`${top - 95}px`);
-        setButtonPositionLeft(`${left + 360}px`);
+        const { top } = activeDay.getBoundingClientRect();
+        setButtonPositionTop(`${top - 100}px`);
       }
     });
   }, [value]);
@@ -84,15 +59,12 @@ function MyCalendar() {
     }
   }, []);
 
+  useEffect(() => {
+    setButtonPositionLeft(`${width / 2 + 175}px`);
+  }, [width]);
+
   return (
-    <div
-      style={{
-        position: "relative",
-        display: "grid",
-        justifyItems: "center",
-        marginTop: "100px",
-      }}
-    >
+    <div className={classes["calendar-wrapper"]}>
       <Calendar onChange={chooseWeek} value={value} allowPartialRange />
       <div
         style={{
@@ -102,12 +74,24 @@ function MyCalendar() {
         }}
       >
         {" "}
-        <button onClick={navigateToTable} type="button">
-          Перейти к неделе
-        </button>
+        <div
+          className={classes["button-forward-wrapper"]}
+          onClick={navigateToTable}
+        >
+          <img
+            src={buttonForward}
+            alt="button-forward"
+            width={38}
+            height={38}
+          />
+          <button
+            className={classes["button-calendar__forward"]}
+            type="button"
+          ></button>
+        </div>
       </div>
     </div>
   );
-}
+};
 
 export default MyCalendar;

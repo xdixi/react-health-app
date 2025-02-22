@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import classes from "./Table.module.css";
 import { setPositionButtonInTextarea } from "./utilsForTable";
 import Rest from "./Rest";
@@ -57,6 +57,7 @@ const TableCell = ({
   dropDateKey,
   rowData,
 }) => {
+  const [textareaWidth, setTextareaWidth] = useState(0);
   const textAreaRef = useRef(null);
   const addNumberingInPreasureColumn = (currWeek, row) => {
     let nextNum = 0;
@@ -158,6 +159,7 @@ const TableCell = ({
   useEffect(() => {
     if (activeCell && textAreaRef.current) {
       const textArea = textAreaRef.current;
+
       if (!textArea.dataset.cursorInitialized) {
         const length = textArea.value.length;
         textArea.setSelectionRange(length, length);
@@ -188,6 +190,22 @@ const TableCell = ({
     }
   }, [activeCell]);
 
+  useEffect(() => {
+    const observer = new ResizeObserver(([entry]) => {
+      setTextareaWidth(entry.contentRect.width);
+    });
+
+    if (textAreaRef.current) {
+      observer.observe(textAreaRef.current);
+    }
+
+    return () => {
+      if (textAreaRef.current) {
+        observer.unobserve(textAreaRef.current);
+      }
+    };
+  });
+
   return (
     <td>
       {isActive ? (
@@ -195,13 +213,13 @@ const TableCell = ({
           <div
             className={classes["div-in-textarea"]}
             onClick={() => onActivate(rowIndex, columnKey, textAreaRef)}
+            style={{
+              padding: "0px",
+            }}
           >
             <textarea
               ref={textAreaRef}
               value={value}
-              className={
-                columnKey === "wellBeing" ? classes["wellbeing-textarea"] : ""
-              }
               onChange={(e) => onChange(e, rowIndex, columnKey)}
               onBlur={(e) => handleBlur(e, rowIndex, columnKey)}
               autoFocus
@@ -219,21 +237,33 @@ const TableCell = ({
                 actualWeekKey={"dayRating"}
               />
             )}
-            <button className={classes["button-remove"]} type="button"></button>
-            <button
-              className={classes["button-agree"]}
-              style={setPositionButtonInTextarea(activeCell?.key)}
-              type="button"
-            ></button>
+            <div
+              style={{
+                position: "absolute",
+              }}
+            >
+              <button
+                className={classes["button-remove"]}
+                type="button"
+              ></button>
+              <button
+                className={classes["button-agree"]}
+                style={setPositionButtonInTextarea(
+                  activeCell?.key,
+                  textareaWidth
+                )}
+                type="button"
+              ></button>
+            </div>
           </div>
         ) : (
           <Rest
             restTime={restTime}
             setRestTime={setRestTime}
             onChange={onChange}
-            actualWeek={actualWeek}
             activeCell={activeCell}
             value={value}
+            dateKey={dropDateKey}
           />
         )
       ) : (
@@ -241,14 +271,14 @@ const TableCell = ({
           {value.split("\n").map((line, index) => (
             <React.Fragment key={index}>
               {line}
-              <br />
+              {line ? <br /> : ""}
             </React.Fragment>
           ))}
           {columnKey === "wellBeing" && (
             <div
               style={{
                 float: "right",
-                paddingRight: "18px",
+                padding: "3px 12px 0 0",
               }}
             >
               <img
@@ -265,28 +295,3 @@ const TableCell = ({
 };
 
 export default TableCell;
-// position: "absolute", right: "10px"
-{
-  /* <Rest
-restTime={restTime}
-setRestTime={setRestTime}
-onChange={onChange}
-actualWeek={actualWeek}
-activeCell={activeCell}
-value={value}
-/>
-)
-) : (
-<div
-onClick={() => onActivate(rowIndex, columnKey, textAreaRef)}
-dangerouslySetInnerHTML={{ __html: value.replace(/\n/g, "<br>") }}
->
-{columnKey === "wellBeing" && <p>dada</p>}
-</div>
-)}
-</td>
-);
-};
-
-export default TableCell; */
-}

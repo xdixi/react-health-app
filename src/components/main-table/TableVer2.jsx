@@ -4,9 +4,8 @@ import classes from "./Table.module.css";
 import TableRow from "./TableRow";
 import { setPositionButtonInTextarea } from "./utilsForTable";
 import TableWeekInfo from "./TableWeekInfo";
-import Tooltip from "./TooltipForPreasure";
-
-import tooltipicon from "../../icons/tooltippng.png";
+import Tooltip from "./Tooltip";
+import iconCalendar from "../../icons/calendar.png";
 
 const getCurrentWeek = (week) => {
   const storedData = JSON.parse(localStorage.getItem("yearData2025"));
@@ -160,32 +159,35 @@ export default function TableVer2() {
   useMemo(() => {
     setActualWeek(getCurrentWeek(week));
   }, []);
+
   return (
-    <div>
-      <button onClick={navigateToCalendar} type="button">
-        Вернуться к календарю
-      </button>
+    <div style={{ marginLeft: "70px", marginTop: "40px", width: "" }}>
+      <div
+        style={{
+          display: "inline-flex ",
+          alignItems: "center",
+          marginBottom: "10px",
+          cursor: "pointer",
+          userSelect: "none",
+        }}
+        onClick={navigateToCalendar}
+      >
+        <button className={classes["button-return"]} type="button"></button>
+        <span style={{ padding: "10px" }}>Вернуться к календарю</span>
+        <img src={iconCalendar} alt="" width={20} height={20} />
+      </div>
       <div style={{ display: "flex" }}>
         <table className={classes["table-main"]}>
           <thead>
             <tr>
               <th className={classes["table-data"]}>Дата</th>
               <th className={classes["table-sleep"]}>Сон</th>
+
               <th className={classes["table-preasure"]}>
                 Давление и пульс
-                <Tooltip content="Заполните поле в формате: 1)16:30 – 135/85/70 проснулся">
-                  <img
-                    style={{
-                      position: "absolute",
-                      top: "-18px",
-                      paddingLeft: "6px",
-                    }}
-                    src={tooltipicon}
-                    alt=""
-                    width={25}
-                  />
-                </Tooltip>
+                <Tooltip content="Заполните поле в формате: 1)16:30 – 135/85/70 проснулся"></Tooltip>
               </th>
+
               <th className={classes["table-well-being"]}>
                 Самочувствие и оценка дня
               </th>
@@ -212,120 +214,8 @@ export default function TableVer2() {
             ))}
           </tbody>
         </table>
-        <div>
-          {/* {actualWeek.map((row, rowIndex) => {
-            const dateKey = Object.keys(row)[0];
-            return (
-              <div key={rowIndex}>
-                <DropdownMood
-                  value={row[dateKey]["dayRating"] || "0nocomment"}
-                  options={moods}
-                  renderItem={renderMoods}
-                  key={rowIndex}
-                  rowIndex={rowIndex}
-                  row={row}
-                  dateKey={dateKey}
-                  handleMoodChange={handleMoodChange}
-                  actualWeekKey={"dayRating"}
-                />
-              </div>
-            );
-          })} */}
-        </div>
       </div>
       <TableWeekInfo actualWeek={actualWeek} />
     </div>
   );
-}
-// [
-//   {
-//     "2025.1.6": {
-//       rest: "",
-//       preasure: "",
-//       wellBeing: "",
-//       pills: "",
-//       dayRating: "",
-//     },
-//   },
-//   {
-//     "2025.1.7": {
-//       rest: "",
-//       preasure: "",
-//       wellBeing: "",
-//       pills: "",
-//       dayRating: "",
-//     },
-//   },
-//   {
-//     "2025.1.8": {
-//       rest: "",
-//       preasure: "",
-//       wellBeing: "",
-//       pills: "",
-//       dayRating: "",
-//     },
-//   },
-//   {
-//     "2025.1.9": {
-//       rest: "",
-//       preasure: "",
-//       wellBeing: "",
-//       pills: "",
-//       dayRating: "",
-//     },
-//   },
-//   {
-//     "2025.1.10": {
-//       rest: "",
-//       preasure: "",
-//       wellBeing: "",
-//       pills: "",
-//       dayRating: "4happy",
-//     },
-//   },
-//   {
-//     "2025.1.11": {
-//       rest: "",
-//       preasure: "",
-//       wellBeing: "",
-//       pills: "",
-//       dayRating: "4happy",
-//     },
-//   },
-//   {
-//     "2025.1.12": {
-//       rest: "",
-//       preasure: "",
-//       wellBeing: "",
-//       pills: "",
-//       dayRating: "3neutral",
-//     },
-//   },
-// ];
-
-{
-  /* <table className={classes["table-moods"]}>
-<tbody>
-  {actualWeek.map((row, rowIndex) => {
-    const dateKey = Object.keys(row)[0];
-    return (
-      <tr key={rowIndex}>
-        <td className={classes["table-moods--td"]}>
-          <DropdownMood
-            value={row[dateKey]["dayRating"] || "0nocomment"}
-            options={moods}
-            renderItem={renderMoods}
-            key={rowIndex}
-            rowIndex={rowIndex}
-            row={row}
-            dateKey={dateKey}
-            handleMoodChange={handleMoodChange}
-            actualWeekKey={"dayRating"}
-          />
-        </td>
-      </tr>
-    );
-  })}
-</tbody>
-</table> */
 }

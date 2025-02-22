@@ -1,6 +1,7 @@
 import React from "react";
 import classes from "./Table.module.css";
 
+// not used
 const MoodRadio = ({
   rowIndex,
   row,
