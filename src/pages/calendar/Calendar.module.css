@@ -1,0 +1,25 @@
+.react-calendar__tile--hasActive {
+  background-color: #006edc !important;
+  color: #fff !important;
+}
+
+.calendar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 30vh;
+}
+.calendar__pics-before-button {
+  position: absolute;
+}
+.calendar__pic {
+  margin-left: 10px;
+  width: 38px;
+  height: 38px;
+}
+.calendar__buttons {
+  width: 350px;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}/*# sourceMappingURL=Calendar.module.css.map */

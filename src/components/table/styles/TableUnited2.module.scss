@@ -1,0 +1,209 @@
+.table-container {
+  width: 100%;
+  max-width: 960px; /* элемент не растянется больше этого значения */
+  margin: 40px auto 40px auto;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.table {
+  border-collapse: collapse;
+  border: 1px solid black;
+
+  &__date {
+    width: 60px;
+  }
+
+  &__wellBeing {
+    width: 300px;
+  }
+
+  &__pressure {
+    width: 300px;
+  }
+
+  &__rest,
+  &__pills {
+    width: 200px;
+  }
+
+  /* закрепить заголовок при скролле */
+  // thead th {
+  //   position: sticky;
+  //   top: 0;
+  //   background-color: white;
+  //   z-index: 10;
+  // }
+
+  th,
+  td,
+  tr {
+    border: 1px solid black;
+  }
+
+  th {
+    padding: 10px;
+  }
+
+  td {
+    &:first-child {
+      text-align: center;
+    }
+
+    &:nth-child(2) {
+      vertical-align: top;
+    }
+
+    height: 300px;
+  }
+
+  &__div-in-textarea {
+    height: 330px;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &__div-in-textarea__with-content {
+    height: 330px;
+    word-break: break-all;
+    font-size: 16px;
+    overflow: auto;
+    padding: 5px;
+    justify-content: space-between;
+  }
+
+  &__div-in-textarea__with-content--wellBeing {
+    height: 330px;
+    word-break: break-all;
+    font-size: 16px;
+    overflow: auto;
+    padding: 5px;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &__textarea {
+    width: 101%;
+    height: 294px;
+    font-size: 16px;
+    font-family: Arial, Helvetica, sans-serif;
+    padding: 4px 5px 5px 4px;
+    resize: none;
+    background-color: lightgreen;
+    line-height: 150%;
+  }
+
+  &__textarea--wellBeing {
+    height: 294px;
+    font-size: 16px;
+    font-family: Arial, Helvetica, sans-serif;
+    padding: 4px 5px 5px 4px;
+    resize: none;
+    background-color: lightgreen;
+    line-height: 150%;
+  }
+
+  &__mood-icon {
+    padding: 3px;
+    margin-left: auto;
+  }
+}
+
+.button-agree {
+  width: 25px;
+  position: absolute;
+  top: 298px;
+  left: 10px;
+  height: 25px;
+  background-image: url("../../../assets/icons/buttons/agree.png");
+  background-size: cover;
+  background-position: center;
+  border: none;
+  border-radius: 50%;
+  color: white;
+  cursor: pointer;
+}
+
+.button-remove {
+  width: 25px;
+  position: absolute;
+  top: 298px;
+  left: 10px;
+  height: 25px;
+  background-image: url("../../../assets/icons/buttons/remove.png");
+  background-size: cover;
+  background-position: center;
+  border: none;
+  border-radius: 50%;
+  color: white;
+  cursor: pointer;
+}
+
+.button-clock-change {
+  width: 20px;
+  height: 20px;
+  margin-left: 5px;
+  background-image: url("../../../assets/icons/clock/clock-change.png");
+  background-size: 100% 100%;
+}
+
+.button-clock-change-reset {
+  width: 20px;
+  height: 20px;
+  margin-left: 7px;
+  background-image: url("../../../assets/icons/clock/clock-change-reset.png");
+  background-size: 100% 100%;
+}
+
+.button-clock-set {
+  width: 20px;
+  height: 20px;
+  margin-left: 5px;
+  background-image: url("../../../assets/icons/clock/clock-set.png");
+  background-size: 100% 100%;
+}
+
+.button-clock-ok {
+  width: 30px;
+  height: 20px;
+  margin-left: 10px;
+  background-color: rgb(28, 240, 28);
+  border: 1px solid black;
+  border-radius: 25px;
+}
+
+.button-clock-ok__disabled {
+  width: 30px;
+  height: 20px;
+  margin-left: 10px;
+  background-color: rgb(184, 190, 184);
+  border: 1px solid black;
+  border-radius: 25px;
+}
+
+.weekly-information {
+  max-width: 1000px;
+  height: 300px;
+  margin: 50px 0px 50px 0px;
+  border: 1px solid black;
+}
+
+.weekly-information--wrapper {
+  display: flex;
+}
+
+.weekly-information div {
+  align-items: center;
+  flex-wrap: wrap;
+  padding: 8px;
+}
+
+.button-moreinfo {
+  border: none;
+  width: 35px;
+  height: 35px;
+  cursor: pointer;
+  background-color: white;
+  background-image: url("../../../assets/icons/buttons/more-info.png");
+  background-size: 100% 100%;
+}

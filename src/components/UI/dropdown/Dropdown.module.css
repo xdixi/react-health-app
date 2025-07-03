@@ -1,0 +1,27 @@
+.dropdown {
+  cursor: pointer;
+}
+
+.dropdown-selected {
+  padding: 8px;
+}
+
+.dropdown-list {
+  position: absolute;
+  margin: 0;
+  padding: 4px;
+  list-style: none;
+  z-index: 10;
+}
+
+.dropdown-list li {
+  padding: 4px;
+  opacity: 0.8;
+  transform: scale(1);
+  transition: all 0.2s ease;
+}
+
+.dropdown-list li:hover {
+  opacity: 1;
+  transform: scale(1.1);
+}/*# sourceMappingURL=Dropdown.module.css.map */

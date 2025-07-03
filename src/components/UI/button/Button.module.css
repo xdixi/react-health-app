@@ -1,0 +1,10 @@
+.button {
+  font-size: 1.1rem;
+  border: 1px solid;
+  border-radius: 6px;
+  padding: 6px;
+}
+
+.icon {
+  width: 40px;
+}/*# sourceMappingURL=Button.module.css.map */
