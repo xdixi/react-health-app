@@ -2,24 +2,18 @@ import React, { useEffect } from "react";
 import classes from "./Clock.module.css";
 import { useClockTime } from "../hooks/useClockTime";
 import { useClockAngles } from "../hooks/useClockAngles";
-import { calcAngles } from "./utilsClock";
+import { calcAngles } from "./utils";
 import { useClockHandler } from "../hooks/useClockHandler";
+import { useSelector } from "react-redux";
 
-const Clock = ({
-  width,
-  value,
-  setRestTime,
-  start,
-  setTimeInModal,
-  modalActive,
-}) => {
+const Clock = ({ width, value, start, setTimeInModal, modalActive }) => {
   const { angleHour, setAngleHour, angleMin, setAngleMin } = useClockAngles(
     value,
     start,
     modalActive
   );
   const { time, setTime, am, setAm, unit, setUnit, setTimeHandler } =
-    useClockTime(value, start, modalActive, setRestTime, setTimeInModal);
+    useClockTime(value, start, modalActive, setTimeInModal);
 
   const {
     drag,
@@ -50,6 +44,7 @@ const Clock = ({
 
   useEffect(() => {
     setUnit(12);
+    setAm(false);
     setAngleHour(
       value && start && modalActive
         ? calcAngles(value)[0]
@@ -72,6 +67,7 @@ const Clock = ({
         : "00:00"
     );
   }, [modalActive]);
+
   return (
     <div className={classes["clock-wrapper"]}>
       <div

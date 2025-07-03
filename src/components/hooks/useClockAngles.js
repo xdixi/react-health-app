@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { calcAngles } from "../clock/utilsClock";
+import { calcAngles } from "../clock/utils";
 
 export const useClockAngles = (value, start, modalActive) => {
   const [angleHour, setAngleHour] = useState(

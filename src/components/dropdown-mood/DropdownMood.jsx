@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import classes from "./Dropdown.module.css";
 
-import badMood from "../../icons/1bad.png";
-import sadMood from "../../icons/2sad.png";
-import neutralMood from "../../icons/3neutral.png";
-import happyMood from "../../icons/4happy.png";
-import veryhappyMood from "../../icons/5veryhappy.png";
-import noCommentMood from "../../icons/0no-comment.png";
-import noMood from "../../icons/no.png";
+import badMood from "../../assets/icons/mood/1bad.png";
+import sadMood from "../../assets/icons/mood/2sad.png";
+import neutralMood from "../../assets/icons/mood/3neutral.png";
+import happyMood from "../../assets/icons/mood/4happy.png";
+import veryhappyMood from "../../assets/icons/mood/5veryhappy.png";
+import noCommentMood from "../../assets/icons/mood/0no-comment.png";
+import noMood from "../../assets/icons/mood/no.png";
 
 const switchMoodImg = (mood) => {
   switch (mood) {

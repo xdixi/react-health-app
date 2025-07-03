@@ -1,11 +1,11 @@
 import React from "react";
 import { Routes, Route, BrowserRouter, Navigate } from "react-router";
-import MyCalendar from "./components/calendar/Calendar";
+import MyCalendar from "./components/calendar/Calendar.tsx";
 import TableVer2 from "./components/main-table/TableVer2";
 import ErrorPage from "./components/error404/ErrorPage";
 import "./styles/reset.css";
 
-function App() {
+export default function App() {
   return (
     <BrowserRouter>
       <Routes>
@@ -17,5 +17,3 @@ function App() {
     </BrowserRouter>
   );
 }
-
-export default App;

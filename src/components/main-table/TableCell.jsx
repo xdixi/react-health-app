@@ -1,15 +1,22 @@
 import React, { useEffect, useRef, useState } from "react";
 import classes from "./Table.module.css";
-import { setPositionButtonInTextarea } from "./utilsForTable";
+import { setPositionButtonInTextarea } from "./utils";
 import Rest from "./Rest";
 import DropdownMood from "../dropdown-mood/DropdownMood";
 
-import badMood from "../../icons/1bad.png";
-import sadMood from "../../icons/2sad.png";
-import neutralMood from "../../icons/3neutral.png";
-import happyMood from "../../icons/4happy.png";
-import veryhappyMood from "../../icons/5veryhappy.png";
-import noCommentMood from "../../icons/0no-comment.png";
+// import badMood from "../../icons/1bad.png";
+// import sadMood from "../../icons/2sad.png";
+// import neutralMood from "../../icons/3neutral.png";
+// import happyMood from "../../icons/4happy.png";
+// import veryhappyMood from "../../icons/5veryhappy.png";
+// import noCommentMood from "../../icons/0no-comment.png";
+
+import badMood from "../../assets/icons/mood/1bad.png";
+import sadMood from "../../assets/icons/mood/2sad.png";
+import neutralMood from "../../assets/icons/mood/3neutral.png";
+import happyMood from "../../assets/icons/mood/4happy.png";
+import veryhappyMood from "../../assets/icons/mood/5veryhappy.png";
+import noCommentMood from "../../assets/icons/mood/0no-comment.png";
 
 const moods = [
   { id: 0, moodName: "0nocomment" },
@@ -51,14 +58,12 @@ const TableCell = ({
   actualWeek,
   setActualWeek,
   setNumberlingHandler,
-  restTime,
-  setRestTime,
   handleMoodChange,
   dropDateKey,
   rowData,
 }) => {
-  const [textareaWidth, setTextareaWidth] = useState(0);
   const textAreaRef = useRef(null);
+  const [textareaWidth, setTextareaWidth] = useState(0);
   const addNumberingInPreasureColumn = (currWeek, row) => {
     let nextNum = 0;
     currWeek.forEach((prop, i) => {
@@ -258,8 +263,6 @@ const TableCell = ({
           </div>
         ) : (
           <Rest
-            restTime={restTime}
-            setRestTime={setRestTime}
             onChange={onChange}
             activeCell={activeCell}
             value={value}

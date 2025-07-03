@@ -1,5 +1,5 @@
 import React from "react";
-import { formatDateInTable } from "./utilsForTable";
+import { formatDateInTable } from "./utils";
 import TableCell from "./TableCell";
 
 const TableRow = ({
@@ -12,8 +12,6 @@ const TableRow = ({
   actualWeek,
   setActualWeek,
   setNumberlingHandler,
-  restTime,
-  setRestTime,
   handleMoodChange,
 }) => {
   const dateKey = Object.keys(rowData)[0];
@@ -44,8 +42,6 @@ const TableRow = ({
             actualWeek={actualWeek}
             setActualWeek={setActualWeek}
             setNumberlingHandler={setNumberlingHandler}
-            restTime={restTime}
-            setRestTime={setRestTime}
             handleMoodChange={handleMoodChange}
             dropDateKey={dateKey}
             rowData={rowData}

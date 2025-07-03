@@ -2,10 +2,10 @@ import React, { useEffect, useMemo, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import classes from "./Table.module.css";
 import TableRow from "./TableRow";
-import { setPositionButtonInTextarea } from "./utilsForTable";
+import { setPositionButtonInTextarea } from "./utils";
 import TableWeekInfo from "./TableWeekInfo";
 import Tooltip from "./Tooltip";
-import iconCalendar from "../../icons/calendar.png";
+import iconCalendar from "../../assets/icons/calendar/calendar.png";
 
 const getCurrentWeek = (week) => {
   const storedData = JSON.parse(localStorage.getItem("yearData2025"));
@@ -24,12 +24,11 @@ const getCurrentWeek = (week) => {
   return currentWeek;
 };
 
-export default function TableVer2() {
+const TableVer2 = () => {
   const [actualWeek, setActualWeek] = useState([]);
   const [activeCell, setActiveCell] = useState(null);
   const [numberlingHandler, setNumberlingHandler] = useState(0); // в помощь для определения втавки порядкового номера
   const [numberlingHandler2, setNumberlingHandler2] = useState(false); // автовставка '1)' при пустой строке
-  const [restTime, setRestTime] = useState("00:00 - 00:00");
 
   let navigate = useNavigate();
   let { week } = useParams();
@@ -207,15 +206,15 @@ export default function TableVer2() {
                 actualWeek={actualWeek}
                 setActualWeek={setActualWeek}
                 setNumberlingHandler={setNumberlingHandler}
-                restTime={restTime}
-                setRestTime={setRestTime}
                 handleMoodChange={handleMoodChange}
               />
             ))}
           </tbody>
         </table>
       </div>
-      <TableWeekInfo actualWeek={actualWeek} />
+      <TableWeekInfo actualWeek={actualWeek} week={week} />
     </div>
   );
-}
+};
+
+export default TableVer2;

@@ -3,11 +3,13 @@ import {
   averageMoodRating,
   averagePreasure,
   averageSleepDuration,
-} from "./utilsForTable";
+  formatDateInWeekInfo,
+} from "./utils";
 import classes from "./Table.module.css";
 import Modal from "../modal/Modal";
+import { formatLongDateInTable } from "../clock/utils";
 
-const TableWeekInfo = ({ actualWeek }) => {
+const TableWeekInfo = ({ actualWeek, week }) => {
   const [modalActive, setModalActive] = useState(false);
 
   const handleAveragePreasure = (obj) => {
@@ -48,6 +50,10 @@ const TableWeekInfo = ({ actualWeek }) => {
         ></button>{" "}
       </div>
       <Modal active={modalActive} setActive={setModalActive}>
+        <p style={{ textAlign: "center" }}>
+          Неделя: {formatDateInWeekInfo(week)[0]} -{" "}
+          {formatDateInWeekInfo(week)[1]}{" "}
+        </p>
         {handleAveragePreasure(averagePreasure(actualWeek)[1])}
       </Modal>
     </div>

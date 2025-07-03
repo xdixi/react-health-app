@@ -21,12 +21,13 @@ export default function Modal({ active, setActive, children }) {
             onClick={() => setActive(false)}
           ></button>
         </div> */}
-
-        <button
-          className={classes["button-close"]}
-          type="button"
-          onClick={() => setActive(false)}
-        ></button>
+        <div>
+          <button
+            className={classes["button-close"]}
+            type="button"
+            onClick={() => setActive(false)}
+          ></button>
+        </div>
         <div>{children}</div>
       </div>
     </div>

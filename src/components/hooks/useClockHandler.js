@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from "react";
-import { calcDegrees, distributeClockNumbers } from "../clock/utilsClock";
+import { calcDegrees, distributeClockNumbers } from "../clock/utils";
 
 export const useClockHandler = (
   width,

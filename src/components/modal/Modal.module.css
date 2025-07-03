@@ -20,6 +20,7 @@
 }
 
 .modal__content {
+  position: relative;
   padding: 20px;
   background-color: white;
   width: 400px;
@@ -32,8 +33,10 @@
 }
 
 .button-close {
-  float: right;
-  background-image: url("../../icons/remove.png");
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background-image: url("../../assets/icons/buttons/remove.png");
   background-color: white;
   background-size: cover;
   width: 22px;
