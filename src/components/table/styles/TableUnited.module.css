@@ -1,51 +1,71 @@
 @charset "UTF-8";
-.table-main {
+.table-container {
+  width: 100%;
+  max-width: 960px; /* элемент не растянется больше этого значения */
+  margin: 40px auto 40px auto;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.table {
   border-collapse: collapse;
-  width: 1000px;
+  border: 1px solid black;
+  /* закрепить заголовок при скролле */
 }
-
-/* закрепить заголовок при скролле */
-.table-main thead th {
-  position: sticky;
-  top: 0;
-  background-color: white;
-  z-index: 10;
+.table__date {
+  width: 60px;
 }
-
-.table-main th,
-td,
-tr {
+.table__wellBeing {
+  width: 300px;
+}
+.table__pressure {
+  width: 300px;
+}
+.table__rest, .table__pills {
+  width: 200px;
+}
+.table th,
+.table td,
+.table tr {
   border: 1px solid black;
 }
-
-.table-main th {
+.table th {
   padding: 10px;
 }
-
-.table-main th:first-child {
-  padding-left: 0px;
-  padding-right: 0px;
+.table td {
+  height: 300px;
 }
-
-.table-main td:first-child {
+.table td:first-child {
   text-align: center;
 }
-
-.table-main tbody > tr > td > div {
-  height: 300px;
+.table td:nth-child(2) {
+  vertical-align: top;
+}
+.table__div-in-textarea {
+  height: 330px;
+  display: flex;
+  justify-content: space-between;
+}
+.table__div-in-textarea__with-content {
+  height: 330px;
   word-break: break-all;
   font-size: 16px;
   overflow: auto;
   padding: 5px;
+  justify-content: space-between;
 }
-
-.div-in-textarea {
+.table__div-in-textarea__with-content--wellBeing {
+  height: 330px;
+  word-break: break-all;
+  font-size: 16px;
+  overflow: auto;
+  padding: 5px;
   display: flex;
+  justify-content: space-between;
 }
-
-textarea {
+.table__textarea {
   width: 101%;
-  height: 264px;
+  height: 294px;
   font-size: 16px;
   font-family: Arial, Helvetica, sans-serif;
   padding: 4px 5px 5px 4px;
@@ -53,56 +73,27 @@ textarea {
   background-color: lightgreen;
   line-height: 150%;
 }
-
-.table-data {
-  width: 60px;
+.table__textarea--wellBeing {
+  height: 294px;
+  font-size: 16px;
+  font-family: Arial, Helvetica, sans-serif;
+  padding: 4px 5px 5px 4px;
+  resize: none;
+  background-color: lightgreen;
+  line-height: 150%;
 }
-
-.table-sleep {
-  width: 140px;
-}
-
-.tablerow-rest__setup {
-  display: flex;
-  align-items: center;
-  cursor: pointer;
-  flex-wrap: wrap;
-  -webkit-user-select: none;
-     -moz-user-select: none;
-          user-select: none;
-}
-
-.tablerow-rest__reset {
-  display: flex;
-  align-items: center;
-  cursor: pointer;
-  flex-wrap: wrap;
-  margin-top: 15px;
-  -webkit-user-select: none;
-     -moz-user-select: none;
-          user-select: none;
-}
-
-.table-preasure {
-  text-align: center;
-  position: relative; /* Для `Tooltip` */
-  width: 230px;
-}
-
-.table-well-being {
-  width: 180px;
-}
-
-.table-farma {
-  width: 110px;
+.table__mood-icon {
+  padding: 3px;
+  margin-left: auto;
 }
 
 .button-agree {
   width: 25px;
   position: absolute;
-  top: 270px;
+  top: 298px;
+  left: 10px;
   height: 25px;
-  background-image: url("../../assets/icons/buttons/agree.png");
+  background-image: url("../../../assets/icons/buttons/agree.png");
   background-size: cover;
   background-position: center;
   border: none;
@@ -114,10 +105,10 @@ textarea {
 .button-remove {
   width: 25px;
   position: absolute;
-  top: 270px;
+  top: 298px;
   left: 10px;
   height: 25px;
-  background-image: url("../../assets/icons/buttons/remove.png");
+  background-image: url("../../../assets/icons/buttons/remove.png");
   background-size: cover;
   background-position: center;
   border: none;
@@ -126,183 +117,11 @@ textarea {
   cursor: pointer;
 }
 
-.weekly-information {
-  max-width: 1000px;
-  height: 300px;
-  margin: 50px 0px 50px 0px;
-  border: 1px solid black;
-}
-
-.weekly-information--wrapper {
-  display: flex;
-}
-
-.weekly-information div {
-  align-items: center;
-  flex-wrap: wrap;
-  padding: 8px;
-}
-
-.badmood {
-  background-image: url("../../assets/icons/mood/1bad.png");
-  background-size: 100% 100%;
-  padding: 0px;
-  -webkit-appearance: none;
-     -moz-appearance: none;
-          appearance: none;
-  width: 30px;
-  height: 30px;
-  border-radius: 10px;
-  opacity: 40%;
-  cursor: pointer;
-  transition: transform 0.8s;
-}
-
-.sadmood {
-  background-image: url("../../assets/icons/mood/2sad.png");
-  background-size: 100% 100%;
-  padding: 0px;
-  -webkit-appearance: none;
-     -moz-appearance: none;
-          appearance: none;
-  width: 30px;
-  height: 30px;
-  border-radius: 10px;
-  opacity: 40%;
-  cursor: pointer;
-  transition: transform 0.8s;
-}
-
-.neutralmood {
-  background-image: url("../../assets/icons/mood/3neutral.png");
-  background-size: 100% 100%;
-  padding: 0px;
-  -webkit-appearance: none;
-     -moz-appearance: none;
-          appearance: none;
-  width: 30px;
-  height: 30px;
-  border-radius: 10px;
-  opacity: 40%;
-  cursor: pointer;
-  transition: transform 0.8s;
-}
-
-.happymood {
-  background-image: url("../../assets/icons/mood/4happy.png");
-  background-size: 100% 100%;
-  padding: 0px;
-  -webkit-appearance: none;
-     -moz-appearance: none;
-          appearance: none;
-  width: 30px;
-  height: 30px;
-  border-radius: 10px;
-  opacity: 40%;
-  cursor: pointer;
-  transition: transform 0.8s;
-}
-
-.veryhappymood {
-  background-image: url("../../assets/icons/mood/5veryhappy.png");
-  background-size: 100% 100%;
-  padding: 0px;
-  -webkit-appearance: none;
-     -moz-appearance: none;
-          appearance: none;
-  width: 30px;
-  height: 30px;
-  border-radius: 10px;
-  opacity: 40%;
-  cursor: pointer;
-  transition: transform 0.8s;
-}
-
-.nocommentmood {
-  background-image: url("../../assets/icons/mood/0no-comment.png");
-  background-size: 100% 100%;
-  padding: 0px;
-  -webkit-appearance: none;
-     -moz-appearance: none;
-          appearance: none;
-  width: 30px;
-  height: 30px;
-  border-radius: 10px;
-  opacity: 40%;
-  cursor: pointer;
-  transition: transform 0.8s;
-}
-
-input[type=radio] {
-  margin: 0;
-}
-
-input[type=radio]:hover {
-  margin: 0;
-  opacity: 100%;
-  transform: scale(1.2);
-}
-
-input[type=radio]:checked {
-  margin: 0;
-  opacity: 100%;
-  transform: scale(1.2);
-}
-
-.button-moreinfo {
-  border: none;
-  width: 40px;
-  height: 40px;
-  cursor: pointer;
-  background-color: white;
-  background-image: url("../../assets/icons/buttons/more-info.png");
-  background-size: 100% 100%;
-}
-
-.button-preasure-handler {
-  position: fixed;
-  padding: 10px 20px;
-  border: 1px solid #b3c9ce;
-  border-radius: 4px;
-  text-align: center;
-  font: italic 14px/1.3 sans-serif;
-  color: #333;
-  background: #fff;
-  box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.3);
-  z-index: 9;
-}
-
-.tooltip-wrapper {
-  width: 30px;
-  height: 30px;
-  display: inline-block;
-  position: relative;
-  vertical-align: middle;
-  margin-left: 5px;
-  cursor: pointer;
-  background-image: url("../../assets/icons/buttons/tooltip.png");
-  background-size: 100% 100%;
-}
-
-.tooltip {
-  position: absolute;
-  width: 240px;
-  padding: 10px 20px;
-  border: 1px solid #b3c9ce;
-  border-radius: 4px;
-  text-align: center;
-  font: italic 14px/1.3 sans-serif;
-  color: #333;
-  background: #fff;
-  box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.3);
-  z-index: 1000;
-}
-
 .button-clock-change {
   width: 20px;
   height: 20px;
   margin-left: 5px;
-  background-image: url("../../assets/icons/clock/clock-change.png");
+  background-image: url("../../../assets/icons/clock/clock-change.png");
   background-size: 100% 100%;
 }
 
@@ -310,7 +129,7 @@ input[type=radio]:checked {
   width: 20px;
   height: 20px;
   margin-left: 7px;
-  background-image: url("../../assets/icons/clock/clock-change-reset.png");
+  background-image: url("../../../assets/icons/clock/clock-change-reset.png");
   background-size: 100% 100%;
 }
 
@@ -318,7 +137,7 @@ input[type=radio]:checked {
   width: 20px;
   height: 20px;
   margin-left: 5px;
-  background-image: url("../../assets/icons/clock/clock-set.png");
+  background-image: url("../../../assets/icons/clock/clock-set.png");
   background-size: 100% 100%;
 }
 
@@ -340,10 +159,29 @@ input[type=radio]:checked {
   border-radius: 25px;
 }
 
-.button-return {
-  width: 20px;
-  height: 20px;
-  margin-left: 5px;
-  background-image: url("../../assets/icons/buttons/return.png");
+.weekly-information {
+  max-width: 1000px;
+  height: 300px;
+  margin: 50px 0px 50px 0px;
+  border: 1px solid black;
+}
+
+.weekly-information--wrapper {
+  display: flex;
+}
+
+.weekly-information div {
+  align-items: center;
+  flex-wrap: wrap;
+  padding: 8px;
+}
+
+.button-moreinfo {
+  border: none;
+  width: 35px;
+  height: 35px;
+  cursor: pointer;
+  background-color: white;
+  background-image: url("../../../assets/icons/buttons/more-info.png");
   background-size: 100% 100%;
-}/*# sourceMappingURL=TableUnited.module.css.map */
+}/*# sourceMappingURL=TableUnited2.module.css.map */

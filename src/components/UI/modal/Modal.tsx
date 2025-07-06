@@ -32,7 +32,6 @@ const Modal: React.FC<ModalProps> = ({
     }
   }, [isOpen]);
 
-  // Закрытие по клику вне модалки
   const handleClickOutside = (e: React.MouseEvent<HTMLDialogElement>) => {
     if (e.target === dialogRef.current) {
       onClose();

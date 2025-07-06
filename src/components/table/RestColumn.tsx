@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import styles from "./styles/TableUnited2.module.scss";
+import styles from "./styles/TableUnited.module.scss";
 import { useDispatch, useSelector } from "react-redux";
 import { resetRestTime } from "../../store/slices/restTimeSlice";
 import type { RootState, AppDispatch } from "../../store/store";
@@ -8,8 +8,6 @@ import { formatDateInTable } from "./utils/date";
 import Clock from "../clock/Clock";
 import { switchMonthEnding } from "./utils/moodChange";
 import Button from "../UI/button";
-
-import setTimeIcon from "../../assets/icons/clock/clock-set.png";
 
 type RestProps = {
   onChange: (newValue: string, row: number, type: string) => void;

@@ -125,7 +125,7 @@ export const useClockHandler = ({
     if (clockFaceRef.current) clockFaceRef.current.style.cursor = "";
 
     if (changeUnit && event.buttons === 0) {
-      setUnit((prev) => (prev === 12 ? 60 : 60)); // тут возможно опечатка? Почему всегда 60?
+      setUnit((prev) => (prev === 12 ? 60 : 60));
     }
     if (event.buttons === 1) {
       setDrag(false);
