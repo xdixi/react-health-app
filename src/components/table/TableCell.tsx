@@ -3,14 +3,10 @@ import styles from "./styles/TableUnited2.module.scss";
 import { setPositionButtonInTextarea } from "./utils/positionHandlers";
 import type { DayDataKeys, DayEntry, WeekData } from "./types";
 import { updateDataInStorage } from "./utils/storage";
-import {
-  addNumberingInPressureColumn,
-  getNextLineNumber,
-} from "./utils/autocompleteInPressureColumn";
+import { getNextLineNumber } from "./utils/autocompleteInPressureColumn";
 import { handleMoodChange, switchMoodImg } from "./utils/moodChange";
 import DropdownMood, { type MoodType } from "../dropdown-mood/DropdownMood";
 import RestColumn from "./RestColumn";
-
 interface Cell {
   row: number;
   key: DayDataKeys;
@@ -54,8 +50,6 @@ const TableCell: React.FC<TableCellProps> = ({
   ) => {
     const updatedDataWeek = [...actualWeek];
     const dateKey = Object.keys(actualWeek[rowIndex])[0];
-
-    // Универсальный способ получить значение
     const newValue = typeof e === "string" ? "" : "";
 
     updatedDataWeek[rowIndex][dateKey][key] = newValue;
@@ -73,7 +67,6 @@ const TableCell: React.FC<TableCellProps> = ({
     const dateKey = Object.keys(actualWeek[rowIndex])[0];
     const area = textAreaRef.current;
 
-    // Если e — строка, просто выходим (или логика по нужде)
     if (typeof e === "string") return;
 
     const related = e.relatedTarget as HTMLElement | null;
@@ -81,7 +74,7 @@ const TableCell: React.FC<TableCellProps> = ({
     if (related && related.className.includes("button-remove")) {
       removeTextButton(e, rowIndex, key);
       setActiveCell({ row: rowIndex, key });
-      area?.focus(); // безопасный вызов
+      area?.focus();
     } else if (
       related &&
       related.className.includes("button-agree") &&
@@ -121,7 +114,6 @@ const TableCell: React.FC<TableCellProps> = ({
     setActualWeek(updatedDataWeek);
     setActiveCell({ row: rowIndex, key });
 
-    // Переносим фокус в useEffect, чтобы синхронизировать состояние
     if (ref.current) {
       ref.current.focus();
     }
@@ -149,7 +141,7 @@ const TableCell: React.FC<TableCellProps> = ({
     e: React.ChangeEvent<HTMLTextAreaElement> | string
   ) => {
     if (typeof e === "string") return e;
-    return e.target.value; // просто возвращаем текст, без логики нумерации
+    return e.target.value;
   };
 
   useEffect(() => {
@@ -183,10 +175,8 @@ const TableCell: React.FC<TableCellProps> = ({
 
           textArea.value = updatedValue;
 
-          // Применим изменение вручную
           handleCellChange(updatedValue, activeCell.row, activeCell.key);
 
-          // Установим курсор после новой вставки
           const newCursorPos = cursorPosition + newLine.length;
           setTimeout(() => {
             textArea.setSelectionRange(newCursorPos, newCursorPos);

@@ -5,10 +5,11 @@ import { getCurrentWeek } from "./utils/date";
 import type { DayDataKeys, WeekData } from "./types";
 import Button from "../UI/button";
 import TableRow from "./TableRow";
-
 import tooltipIcon from "../../assets/icons/buttons/tooltip.png";
 import Tooltip from "../UI/tooltip";
 import TableWeekInfo from "./TableWeekInfo";
+import { useTranslation } from "react-i18next";
+import LanguageSwitcher from "../language-switcher/LanguageSwitcher";
 
 interface Cell {
   row: number;
@@ -18,6 +19,8 @@ interface Cell {
 const TableUnited = () => {
   const [actualWeek, setActualWeek] = useState<WeekData>([]);
   const [activeCell, setActiveCell] = useState<Cell | null>(null);
+
+  const { t } = useTranslation();
 
   const navigate = useNavigate();
   const { week } = useParams();
@@ -50,10 +53,11 @@ const TableUnited = () => {
       <Button onClick={navigateToCalendar} style={{ marginBottom: "20px" }}>
         К календарю
       </Button>
+      {/* <LanguageSwitcher></LanguageSwitcher> */}
       <table className={styles["table"]}>
         <thead>
           <tr>
-            <th className={styles["table__date"]}>Дата</th>
+            <th className={styles["table__date"]}>{t("dataColumn")}</th>
             <th className={styles["table__rest"]}>Сон</th>
             <th className={styles["table__pressure"]}>
               <div
