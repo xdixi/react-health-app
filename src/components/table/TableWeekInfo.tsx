@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import styles from "./styles/TableUnited2.module.scss";
+import styles from "./styles/TableUnited.module.scss";
 import {
   averageMoodRating,
   averagePreasure,
@@ -8,25 +8,22 @@ import {
 } from "./utils/calcAverage";
 import Modal from "../UI/modal/Modal";
 
-// Типы для одной ячейки данных за день
 export type DayData = {
   sleepTime?: string;
   wakeTime?: string;
   pressureAndPulse?: string;
   wellBeing?: string;
   pills?: string;
-  dayRating?: string; // Тип можно уточнить, если у тебя enum для dayRating
+  dayRating?: string;
 };
 
-// Тип данных для одной строки недели
 export type WeekRow = {
   [date: string]: DayData;
 };
 
-// Тип пропсов
 interface TableWeekInfoProps {
   actualWeek: WeekRow[];
-  week: string[]; // [startDate, endDate]
+  week: string[];
 }
 
 const TableWeekInfo: React.FC<TableWeekInfoProps> = ({ actualWeek, week }) => {

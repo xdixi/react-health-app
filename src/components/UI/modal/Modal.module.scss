@@ -5,22 +5,12 @@
   width: 90%;
   max-width: 500px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-
   position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-
   background: white;
   animation: zoomIn 0.3s ease-out forwards;
-
-  // &.open {
-  //   animation: zoomIn 0.3s ease-out forwards;
-  // }
-
-  // &.close {
-  //   animation: zoomOut 0.3s ease-out forwards;
-  // }
 }
 
 ::backdrop {
@@ -40,17 +30,6 @@
 .content {
   padding: 20px;
 }
-
-// @keyframes fadeIn {
-//   from {
-//     transform: translateY(-10px);
-//     opacity: 0;
-//   }
-//   to {
-//     transform: translateY(0);
-//     opacity: 1;
-//   }
-// }
 
 @keyframes zoomIn {
   from {

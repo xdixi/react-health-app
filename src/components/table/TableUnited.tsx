@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import styles from "./styles/TableUnited2.module.scss";
+import styles from "./styles/TableUnited.module.scss";
 import { getCurrentWeek } from "./utils/date";
 import type { DayDataKeys, WeekData } from "./types";
 import Button from "../UI/button";
