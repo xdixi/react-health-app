@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import styles from "./NotFound.module.scss";
 import type { FC } from "react";
+import Button from "../../components/UI/button";
 
 const NotFound: FC = () => {
   const navigate = useNavigate();
@@ -11,13 +12,12 @@ const NotFound: FC = () => {
   return (
     <div className={styles["error-page__wrapper"]}>
       page not found
-      <button
+      <Button
         className={styles["error-page__button"]}
         onClick={navigateToCalendar}
-        type="button"
       >
         Вернуться к календарю
-      </button>
+      </Button>
     </div>
   );
 };
